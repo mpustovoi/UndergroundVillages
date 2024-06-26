@@ -20,17 +20,17 @@ import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.StructureTagsProvider;
 import net.minecraft.world.level.biome.Biomes;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
 
 import javax.annotation.Nullable;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class UndergroundDatagen {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
@@ -45,7 +45,7 @@ public class UndergroundDatagen {
 		generator.addProvider(event.includeServer(), new UndergroundStructureFeatureTagProvider(packOutput, lookupProvider, helper));
 		generator.addProvider(event.includeServer(), new UndergroundBiomeTagProvider(packOutput, lookupProvider, helper));
 
-		generator.addProvider(event.includeServer(), new StructureUpdater("structures/village", Constants.MOD_ID, helper, packOutput));
+		generator.addProvider(event.includeServer(), new StructureUpdater("structure/village", Constants.MOD_ID, helper, packOutput));
 	}
 
 

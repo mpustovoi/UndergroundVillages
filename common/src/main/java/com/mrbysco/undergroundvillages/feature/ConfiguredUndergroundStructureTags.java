@@ -7,9 +7,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public interface ConfiguredUndergroundStructureTags {
-	TagKey<Structure> UNDERGROUND_VILLAGE = create(Constants.MOD_ID + ":underground_village");
+	TagKey<Structure> UNDERGROUND_VILLAGE = create("underground_village");
 
-	private static TagKey<Structure> create(String id) {
-		return TagKey.create(Registries.STRUCTURE, new ResourceLocation(id));
+	private static TagKey<Structure> create(String path) {
+		return TagKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, path));
 	}
 }

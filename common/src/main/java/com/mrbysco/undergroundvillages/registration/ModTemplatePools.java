@@ -2,23 +2,25 @@ package com.mrbysco.undergroundvillages.registration;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import com.mrbysco.undergroundvillages.Constants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.data.worldgen.ProcessorLists;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
 public class ModTemplatePools {
-	public static final ResourceKey<StructureTemplatePool> UNDERGROUND_START = Pools.createKey("underground_villages:village/underground/town_centers");
-	public static final ResourceKey<StructureTemplatePool> UNDERGROUND_TERMINATORS_KEY = Pools.createKey("underground_villages:village/underground/terminators");
+	public static final ResourceKey<StructureTemplatePool> UNDERGROUND_START = createKey("village/underground/town_centers");
+	public static final ResourceKey<StructureTemplatePool> UNDERGROUND_TERMINATORS_KEY = createKey("village/underground/terminators");
 
-	public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
+	public static void bootstrap(BootstrapContext<StructureTemplatePool> context) {
 		HolderGetter<PlacedFeature> holdergetter = context.lookup(Registries.PLACED_FEATURE);
 		Holder<PlacedFeature> oakVillageHolder = holdergetter.getOrThrow(ModPlacedFeatures.OAK_VILLAGE);
 		Holder<PlacedFeature> flowerPlainHolder = holdergetter.getOrThrow(ModPlacedFeatures.FLOWER_PLAIN_VILLAGE);
@@ -45,7 +47,7 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/town_centers/meeting_point_2", zombiePlainsHolder), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/town_centers/meeting_point_3", zombiePlainsHolder), 1)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/streets", new StructureTemplatePool(terminatorPoolHolder,
+		registerPools(context, "village/underground/streets", new StructureTemplatePool(terminatorPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/streets/corner_01", streetCaveHolder), 2),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/streets/corner_02", streetCaveHolder), 2),
@@ -64,7 +66,7 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/streets/crossroad_06", streetCaveHolder), 2),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/streets/turn_01", streetCaveHolder), 3)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/zombie/streets", new StructureTemplatePool(terminatorPoolHolder,
+		registerPools(context, "village/underground/zombie/streets", new StructureTemplatePool(terminatorPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/streets/corner_01", streetCaveHolder), 2),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/streets/corner_02", streetCaveHolder), 2),
@@ -83,7 +85,7 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/streets/crossroad_06", streetCaveHolder), 2),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/streets/turn_01", streetCaveHolder), 3)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/houses", new StructureTemplatePool(terminatorPoolHolder,
+		registerPools(context, "village/underground/houses", new StructureTemplatePool(terminatorPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/houses/small_house_1", mossify10Holder), 2),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/houses/small_house_2", mossify10Holder), 2),
@@ -123,7 +125,7 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/houses/meeting_point_5"), 1),
 						Pair.of(StructurePoolElement.empty(), 10)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/zombie/houses", new StructureTemplatePool(terminatorPoolHolder,
+		registerPools(context, "village/underground/zombie/houses", new StructureTemplatePool(terminatorPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/houses/small_house_1", zombiePlainsHolder), 2),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/houses/small_house_2", zombiePlainsHolder), 2),
@@ -170,11 +172,11 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/terminators/terminator_03", streetCaveHolder), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/terminators/terminator_04", streetCaveHolder), 1)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/trees", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/underground/trees", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.feature(oakVillageHolder), 1)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/decor", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/underground/decor", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/lamp_1"), 2),
 						Pair.of(StructurePoolElement.feature(oakVillageHolder), 1),
@@ -182,7 +184,7 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.feature(pileHayHolder), 1),
 						Pair.of(StructurePoolElement.empty(), 2)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/zombie/decor", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/underground/zombie/decor", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/lamp_1", zombiePlainsHolder), 1),
 						Pair.of(StructurePoolElement.feature(oakVillageHolder), 1),
@@ -190,18 +192,18 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.feature(pileHayHolder), 1),
 						Pair.of(StructurePoolElement.empty(), 2)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/villagers", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/underground/villagers", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/villagers/nitwit"), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/villagers/baby"), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/villagers/unemployed"), 10)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/underground/zombie/villagers", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/underground/zombie/villagers", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/villagers/nitwit"), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/underground/zombie/villagers/unemployed"), 10)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/common/animals", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/common/animals", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/cows_1"), 7),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/pigs_1"), 7),
@@ -214,12 +216,12 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/sheep_2"), 1),
 						Pair.of(StructurePoolElement.empty(), 5)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/common/sheep", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/common/sheep", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/sheep_1"), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/sheep_2"), 1)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/common/cats", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/common/cats", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/cat_black"), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/cat_british"), 1),
@@ -233,20 +235,27 @@ public class ModTemplatePools {
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/cat_jellie"), 1),
 						Pair.of(StructurePoolElement.empty(), 3)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/common/butcher_animals", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/common/butcher_animals", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/cows_1"), 3),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/pigs_1"), 3),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/sheep_1"), 1),
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/animals/sheep_2"), 1)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/common/iron_golem", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/common/iron_golem", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/iron_golem"), 1)),
 				StructureTemplatePool.Projection.RIGID));
-		Pools.register(context, "underground_villages:village/common/well_bottoms", new StructureTemplatePool(emptyPoolHolder,
+		registerPools(context, "village/common/well_bottoms", new StructureTemplatePool(emptyPoolHolder,
 				ImmutableList.of(
 						Pair.of(StructurePoolElement.legacy("underground_villages:village/common/well_bottom"), 1)),
 				StructureTemplatePool.Projection.RIGID));
+	}
+
+	public static void registerPools(BootstrapContext<StructureTemplatePool> context, String id, StructureTemplatePool pool) {
+		context.register(createKey(id), pool);
+	}
+	public static ResourceKey<StructureTemplatePool> createKey(String path) {
+		return ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, path));
 	}
 }
