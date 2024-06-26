@@ -1,1 +1,1 @@
-* Update underground village structure nbt
+* Initial update to 1.21
